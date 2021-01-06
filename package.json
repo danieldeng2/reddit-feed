@@ -1,0 +1,19 @@
+{
+  "name": "reddit-feed",
+  "version": "1.0.0",
+  "description": "A web app that integrates with Reddit’s API to show the top articles in a given subreddit.",
+  "main": "server.js",
+  "repository": "git@github.com:danieldeng2/reddit-feed.git",
+  "author": "danieldeng2 <danieldeng223@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.7"
+  }
+}
