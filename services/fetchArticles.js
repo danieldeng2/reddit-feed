@@ -27,7 +27,7 @@ module.exports = function FetchArticles() {
 	}
 
 	function onSuccess(rawResponse) {
-		that.response = rawResponse;
+		that.response = rawResponse.data;
 		validateResponse();
 		that.resolve(parseResponse());
 	}
@@ -43,9 +43,28 @@ module.exports = function FetchArticles() {
 	function validateResponse() {
 	}
 
-
 	function parseResponse() {
-		return this.response;
+		//Parse raw data to only return useful information
+		const rawArticles = that.response.children;
+		const articles = [];
+		for (let rawArticle of rawArticles) {
+			const articleData = rawArticle.data;
+
+			const article = {
+				id: articleData.id,
+				score: articleData.score,
+				title: articleData.title,
+				link: articleData.url,
+				content: articleData.selftext,
+			};
+			articles.push(article);
+		}
+
+		return {
+			subreddit: rawArticles[0].data.subreddit,
+			limit: that.response.dist,
+			articles,
+		};
 	}
 
 }

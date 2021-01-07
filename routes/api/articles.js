@@ -8,12 +8,11 @@ router.route('/:subreddit').get((req, res) => {
 	const limit = req.query.limit;
 
 	new FetchArticles().run(subreddit, timeframe, limit).then(
-		articles => res.status(200).send(articles)
+		articles => res.status(200).json(articles)
 	).catch(
-		error => res.status(404).send(error)
+		error => res.status(404).json(error)
 	);
 
 });
-
 
 module.exports = router;
