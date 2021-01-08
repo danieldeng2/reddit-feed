@@ -1,5 +1,4 @@
-require('rootpath')();
-const redditAdapter = require('adapters/redditAdapter');
+const redditAdapter = require('../adapters/redditAdapter');
 
 module.exports = function FetchArticles() {
 	const that = this;

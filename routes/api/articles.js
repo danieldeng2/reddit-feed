@@ -1,6 +1,5 @@
-require('rootpath')();
 const router = require('express').Router();
-const FetchArticles = require('services/fetchArticles');
+const FetchArticles = require('../../services/fetchArticles');
 
 router.route('/:subreddit').get((req, res) => {
 	const subreddit = req.params.subreddit;

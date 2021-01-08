@@ -1,6 +1,5 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import Spinner from 'react-bootstrap/Spinner';
 import React, { useState, useEffect } from 'react';
 
 import MyNavBar from './MyNavBar';
@@ -12,7 +11,7 @@ import LoadingScreen from './LoadingScreen';
 function App() {
 	// data set by user
 	const [subreddit, setSubreddit] = useState("");
-	const [timeframe, setTimeframe] = useState("all");
+	const [timeframe, setTimeframe] = useState("day");
 	const [limit, setLimit] = useState(25);
 
 
