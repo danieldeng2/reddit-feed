@@ -15,7 +15,6 @@ function TimeSelector(props) {
 		<NavDropdown
 			title={`${displayTexts[props.value]} `}
 			className="mr-3"
-			activeKey="all"
 			id="time-selector"
 			onSelect={props.onSelect}
 		>

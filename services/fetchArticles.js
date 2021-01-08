@@ -56,7 +56,7 @@ module.exports = function FetchArticles() {
 				timestamp: articleData.created_utc,
 				title: articleData.title,
 				link: articleData.url,
-				content: articleData.selftext_html,
+				content: articleData.selftext,
 			};
 			articles.push(article);
 		}

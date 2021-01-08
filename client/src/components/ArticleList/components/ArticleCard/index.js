@@ -1,6 +1,9 @@
+import ReactMarkdown from 'react-markdown';
+
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+
 
 function ArticleCard(props) {
 	const creationDate = new Date(props.time * 1000).toLocaleString();
@@ -9,12 +12,14 @@ function ArticleCard(props) {
 			<Col>
 				<Card>
 					<Card.Body>
-						<Card.Title>{props.title}</Card.Title>
+						<Card.Title>
+							{<ReactMarkdown>{props.title}</ReactMarkdown>}
+						</Card.Title>
 						<Card.Subtitle className="mb-2 text-muted">
 							{`${creationDate} | ${props.score} Upvotes`}
 						</Card.Subtitle>
 						<Card.Text>
-							{props.content}
+							{<ReactMarkdown>{props.content}</ReactMarkdown>}
 						</Card.Text>
 						<Card.Link href={props.link} target="_blank">Link</Card.Link>
 					</Card.Body>
