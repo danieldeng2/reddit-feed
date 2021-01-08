@@ -1,12 +1,13 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import React, { useState, useEffect } from 'react';
+import queryString from "query-string";
 
 import MyNavBar from './MyNavBar';
 import ErrorAlert from './ErrorAlert';
 import ArticleList from './ArticleList';
 import LoadingScreen from './LoadingScreen';
-
+import { api } from "../constants/routes";
 
 function App() {
 	// data set by user
@@ -27,8 +28,9 @@ function App() {
 
 		// Default to r/all if no subreddit specified
 		const subString = subreddit !== "" ? subreddit : "all";
+		const qs = queryString.stringify({ timeframe, limit });
 
-		fetch(`http://localhost:5000/api/articles/${subString}?timeframe=${timeframe}&limit=${limit}`).then(
+		fetch(`${api.REDDIT_ARTICLES}/${subString}?${qs}`).then(
 			res => {
 				if (res.ok) {
 					return res.json();
@@ -45,7 +47,7 @@ function App() {
 		).catch(
 			error => {
 				setShowError(true);
-				setIsDone(false);
+				setIsDone(true);
 				setErrorMessage(error.message);
 				setArticles([]);
 			}
