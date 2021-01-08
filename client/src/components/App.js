@@ -1,5 +1,6 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
+import React, { useState, useEffect } from 'react';
 
 import MyNavBar from './MyNavBar';
 import ErrorAlert from './ErrorAlert';
@@ -7,12 +8,56 @@ import ArticleList from './ArticleList';
 
 
 function App() {
+	// data set by user
+	const [subreddit, setSubreddit] = useState("");
+	const [timeframe, setTimeframe] = useState("all");
+	const [limit, setLimit] = useState(25);
+
+
+	// data returned by api
+	const [articles, setArticles] = useState([]);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [showError, setShowError] = useState(false);
+
+	useEffect(() => {
+		// Default to r/all if no subreddit specified
+		const subString = subreddit !== "" ? subreddit : "all";
+
+		fetch(`http://localhost:5000/api/articles/${subString}?timeframe=${timeframe}&limit=${limit}`).then(
+			res => {
+				if (res.ok) {
+					return res.json();
+				} else {
+					throw new Error('Something went wrong. ');
+				}
+			}
+		).then(
+			data => {
+				setShowError(false);
+				setArticles(data.articles);
+			}
+		).catch(
+			error => {
+				setShowError(true);
+				setErrorMessage(error.message);
+				setArticles([]);
+			}
+		)
+	},
+		[subreddit, timeframe, limit]);
+
+		console.log(subreddit);
 	return (
 		<>
-			<MyNavBar />
+			<MyNavBar
+				subreddit={subreddit}
+				setSubreddit={setSubreddit}
+				setTimeframe={setTimeframe}
+				setLimit={setLimit}
+			/>
 			<Container className="p-3">
-				<ErrorAlert />
-				<ArticleList />
+				<ErrorAlert show={showError} message={errorMessage} />
+				<ArticleList articles={articles} />
 			</Container>
 		</>
 	);

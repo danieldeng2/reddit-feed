@@ -53,9 +53,10 @@ module.exports = function FetchArticles() {
 			const article = {
 				id: articleData.id,
 				score: articleData.score,
+				timestamp: articleData.created_utc,
 				title: articleData.title,
 				link: articleData.url,
-				content: articleData.selftext,
+				content: articleData.selftext_html,
 			};
 			articles.push(article);
 		}

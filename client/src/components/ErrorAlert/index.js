@@ -1,9 +1,9 @@
 import Alert from 'react-bootstrap/Alert';
 
-function ErrorAlert() {
-	return (
+function ErrorAlert(props) {
+	return props.show && (
 		<Alert key={1} variant={'danger'}>
-			Error 404.
+			{props.message}
 		</Alert>
 	);
 }
