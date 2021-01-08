@@ -9,7 +9,7 @@ router.route('/:subreddit').get((req, res) => {
 	new FetchArticles().run(subreddit, timeframe, limit).then(
 		articles => res.status(200).json(articles)
 	).catch(
-		error => res.status(404).json(error)
+		e => res.status(e.error || 404).json(e)
 	);
 
 });

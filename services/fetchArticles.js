@@ -11,8 +11,10 @@ module.exports = function FetchArticles() {
 			(res, rej) => {
 				that.resolve = res;
 				that.reject = rej;
-				validateRequest();
-				fetchArticleDetails(subreddit, timeframe, limit).then(onSuccess, onFail);
+				validateRequest(subreddit, timeframe, limit);
+				fetchArticleDetails(subreddit, timeframe, limit)
+					.then(onSuccess)
+					.catch(onFail);
 			}
 		)
 	}
@@ -26,20 +28,13 @@ module.exports = function FetchArticles() {
 	}
 
 	function onSuccess(rawResponse) {
+		validateResponse(rawResponse);
 		that.response = rawResponse.data;
-		validateResponse();
 		that.resolve(parseResponse());
 	}
 
 	function onFail(error) {
 		that.reject(error);
-	}
-
-	function validateRequest() {
-	}
-
-
-	function validateResponse() {
 	}
 
 	function parseResponse() {
@@ -65,6 +60,28 @@ module.exports = function FetchArticles() {
 			limit: that.response.dist,
 			articles,
 		};
+	}
+
+	function validateRequest(subreddit, timeframe, limit) {
+		const timeframeOptions = new Set(["hour", "day", "week", "month", "year", "all"]);
+
+		if (!subreddit)
+			that.reject({ message: "Subreddit name must be provided", error: 400 });
+
+		else if (limit && limit <= 0)
+			that.reject({ message: "Limit must be greater than 0", error: 400 });
+
+		else if (timeframe && !timeframeOptions.has(timeframe))
+			that.reject({ message: "Timeframe invalid", error: 400 });
+	}
+
+
+	function validateResponse(rawResponse) {
+		if (!rawResponse.data)
+			that.reject({ message: "Unknown error", error: 404 });
+
+		else if (!rawResponse.data.children || !rawResponse.data.children[0])
+			that.reject({ message: "Unknown error", error: 404 });
 	}
 
 }
