@@ -8,7 +8,13 @@ function SubredditBox(props) {
 	const [subreddit, setSubreddit] = useState(props.value);
 
 	return (
-		<Form inline>
+		<Form inline onSubmit={
+			(event) => {
+				event.preventDefault();
+				props.onSubmit(subreddit)
+			}
+		}
+		>
 			<FormControl
 				type="text"
 				placeholder="Subreddit"
@@ -22,7 +28,7 @@ function SubredditBox(props) {
 			/>
 			<Button
 				variant="outline-success"
-				onClick={() => props.onSubmit(subreddit)}
+				type="submit"
 			>
 				Go
 			</Button>

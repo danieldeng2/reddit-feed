@@ -1,10 +1,12 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 import React, { useState, useEffect } from 'react';
 
 import MyNavBar from './MyNavBar';
 import ErrorAlert from './ErrorAlert';
 import ArticleList from './ArticleList';
+import LoadingScreen from './LoadingScreen';
 
 
 function App() {
@@ -18,8 +20,12 @@ function App() {
 	const [articles, setArticles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [showError, setShowError] = useState(false);
+	const [isDone, setIsDone] = useState(false);
 
 	useEffect(() => {
+
+		setIsDone(false);
+
 		// Default to r/all if no subreddit specified
 		const subString = subreddit !== "" ? subreddit : "all";
 
@@ -34,11 +40,13 @@ function App() {
 		).then(
 			data => {
 				setShowError(false);
+				setIsDone(true);
 				setArticles(data.articles);
 			}
 		).catch(
 			error => {
 				setShowError(true);
+				setIsDone(false);
 				setErrorMessage(error.message);
 				setArticles([]);
 			}
@@ -46,7 +54,6 @@ function App() {
 	},
 		[subreddit, timeframe, limit]);
 
-		console.log(subreddit);
 	return (
 		<>
 			<MyNavBar
@@ -59,7 +66,8 @@ function App() {
 			/>
 			<Container className="p-3">
 				<ErrorAlert show={showError} message={errorMessage} />
-				<ArticleList articles={articles} />
+				{!isDone && <LoadingScreen />}
+				{isDone && <ArticleList articles={articles} />}
 			</Container>
 		</>
 	);
