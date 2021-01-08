@@ -51,6 +51,8 @@ function App() {
 		<>
 			<MyNavBar
 				subreddit={subreddit}
+				timeframe={timeframe}
+				limit={limit}
 				setSubreddit={setSubreddit}
 				setTimeframe={setTimeframe}
 				setLimit={setLimit}

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
@@ -21,8 +20,14 @@ function MyNavBar(props) {
 				</Nav>
 
 				<Nav>
-					<TimeSelector onSelect={props.setTimeframe} />
-					<LimitSelector onSelect={props.setLimit} />
+					<TimeSelector
+						onSelect={props.setTimeframe}
+						value={props.timeframe}
+					/>
+					<LimitSelector
+						onSelect={props.setLimit}
+						value={props.limit}
+					/>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

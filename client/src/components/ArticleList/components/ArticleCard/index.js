@@ -16,7 +16,7 @@ function ArticleCard(props) {
 						<Card.Text>
 							{props.content}
 						</Card.Text>
-						<Card.Link href={props.link}>Link</Card.Link>
+						<Card.Link href={props.link} target="_blank">Link</Card.Link>
 					</Card.Body>
 				</Card>
 			</Col>

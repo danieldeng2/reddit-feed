@@ -3,10 +3,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 function LimitSelector(props) {
 	return (
 		<NavDropdown
-			title="Limit "
-			id="basic-nav-dropdown"
+			title={`${props.value} results `}
+			id="limit-selector"
 			className="mr-3"
-			activeKey={25}
 			onSelect={props.onSelect}
 		>
 			<NavDropdown.Item eventKey={5}>5</NavDropdown.Item>

@@ -20,7 +20,12 @@ function SubredditBox(props) {
 				}
 				}
 			/>
-			<Button variant="outline-success" onClick={() => props.onSubmit(subreddit)}>Go</Button>
+			<Button
+				variant="outline-success"
+				onClick={() => props.onSubmit(subreddit)}
+			>
+				Go
+			</Button>
 		</Form>
 	);
 }
