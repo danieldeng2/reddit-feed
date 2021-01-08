@@ -3,14 +3,14 @@ const app = require('../app');
 
 describe('Node Environment', () => {
 	it('should have test environment enabled', () => {
-		expect(process.env.NODE_ENV).toBe('test')
+		expect(process.env.NODE_ENV).toBe('test');
 	})
 })
 
 describe("Test the Article endpoint", () => {
 	test("It should response the GET method", () => {
 		return request(app)
-			.get("/api/articles/all")
+			.get("/api/articles/correctSubreddit")
 			.then(response => {
 				expect(response.statusCode).toBe(200);
 			});

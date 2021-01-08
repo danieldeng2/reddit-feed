@@ -28,7 +28,9 @@ module.exports = function FetchArticles() {
 	}
 
 	function onSuccess(rawResponse) {
+		console.log("onSuccess " + rawResponse.kind);
 		validateResponse(rawResponse);
+
 		that.response = rawResponse.data;
 		that.resolve(parseResponse());
 	}
@@ -41,9 +43,9 @@ module.exports = function FetchArticles() {
 		//Parse raw data to only return useful information
 		const rawArticles = that.response.children;
 		const articles = [];
+
 		for (let rawArticle of rawArticles) {
 			const articleData = rawArticle.data;
-
 			const article = {
 				id: articleData.id,
 				score: articleData.score,
@@ -54,6 +56,7 @@ module.exports = function FetchArticles() {
 			};
 			articles.push(article);
 		}
+
 
 		return {
 			subreddit: rawArticles[0].data.subreddit,
