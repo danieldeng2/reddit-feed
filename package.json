@@ -5,6 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+		"test:client": "cd client && yarn test",
 		"start": "node server.js",
 		"dev": "nodemon server.js",
 		"client": "cd client && yarn start",
