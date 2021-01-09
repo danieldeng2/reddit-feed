@@ -106,4 +106,3 @@ dist
 # Ignore artifacts:
 build
 coverage
-client
