@@ -18,9 +18,11 @@ function ArticleCard(props) {
 						<Card.Subtitle className="mb-2 text-muted">
 							{`${creationDate} | ${props.score} Upvotes`}
 						</Card.Subtitle>
-						<Card.Text>
+						
+						<div className="card-text">
 							{<ReactMarkdown>{props.content}</ReactMarkdown>}
-						</Card.Text>
+						</div>
+
 						<Card.Link href={props.link} target="_blank">Link</Card.Link>
 					</Card.Body>
 				</Card>
