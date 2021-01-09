@@ -1,6 +1,6 @@
 # Reddit Feed Client
 
-This is the client for the reddit feed written in react.js. Go to the project root for more instructions, or run the following scripts in this folder. 
+This is the client for the reddit feed written in react.js. Go to the project root for more instructions, or run the following scripts in this folder.
 
 ### `yarn start`
 
