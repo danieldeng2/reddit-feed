@@ -1,4 +1,5 @@
 import ReactMarkdown from "react-markdown";
+import gfm from 'remark-gfm';
 import { decode } from "html-entities";
 
 import Col from "react-bootstrap/Col";
@@ -13,14 +14,14 @@ function ArticleCard(props) {
         <Card>
           <Card.Body>
             <Card.Title>
-              {<ReactMarkdown>{decode(props.title)}</ReactMarkdown>}
+              {<ReactMarkdown  plugins={[gfm]} >{decode(props.title)}</ReactMarkdown>}
             </Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               {`${creationDate} | ${props.score} Upvotes`}
             </Card.Subtitle>
 
             <div className="card-text">
-              {<ReactMarkdown>{decode(props.content)}</ReactMarkdown>}
+              {<ReactMarkdown  plugins={[gfm]} >{decode(props.content)}</ReactMarkdown>}
             </div>
 
             <Card.Link href={props.link} target="_blank">
