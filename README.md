@@ -2,7 +2,7 @@
 
 A web app that integrates with Reddit’s API to show the top articles in a given subreddit. 
 
-Travis CI is enabled in this repository to run tests on the backend code. 
+Travis CI is enabled in this repository to run tests on the server code. 
 
 Application deployed on Heroku: [https://redditfeed.herokuapp.com/](https://redditfeed.herokuapp.com/)
 
@@ -11,6 +11,7 @@ Application deployed on Heroku: [https://redditfeed.herokuapp.com/](https://redd
 #### API endpoint
 
 An API endpoint is available at  `/api/articles/{subredditName}`, which responds to `GET` requests by returning information about top articles in that subreddit. 
+
 Optional parameters: 
 
  - `limit`:	the maximum number of items desired, defaults to 25
@@ -66,22 +67,27 @@ In the project root directory, you can run:
 #### `yarn start`
 
 Runs the server without change detection, use this for deployment. 
+
 The APIs will available at [http://localhost:5000/api/](http://localhost:5000/api/). 
 
 #### `yarn run dev`
 
 Runs the server for development. The server will auto restart if changes are detected. 
+
 The APIs will available at [http://localhost:5000/api/](http://localhost:5000/api/). 
 
 #### `yarn run client`
 
 Runs the client code for development. 
+
 The UI will available at [http://localhost:3000/](http://localhost:3000/). 
 
 #### `yarn run stack`
 
 Runs both the server and the client in development mode. 
+
 The APIs will available at [http://localhost:5000/api/](http://localhost:5000/api/).  
+
 The UI will available at [http://localhost:3000/](http://localhost:3000/). 
 
 #### `yarn run test`
@@ -91,4 +97,25 @@ Runs tests on the server code using jest.
 #### `yarn run test:client`
 
 Runs tests on the client code using jest. 
+
+
+## How It Works
+
+#### Server
+
+The server code has it's entry point at `server.js`, and is structured as follows: 
+
+ - `app.js` : Sets up and runs the application, separate from `server.js` for ease of testing
+ - `adapters/redditAdapter` : Adapter that communicates with reddit.com. A Mock version with mock data is used in testing
+ - `routes/api` : API endpoint that listens for a GET request and responds with the correct data
+ - `services/fetchArticles` : A service object that handles business logic. Responsible for parsing data into a useful format as well as validation
+ - `tests/*` : unit and integration tests for the server code
+
+#### Client
+
+The client code is all inside `/client` of this repository for ease of deployment. The React code is all inside the `/src` directory
+
+ - `index.js` : Entry point of the application
+ - `constants/routes` : Stores the location of API endpoints and returns the correct version depending on development environment
+ - `components` : React components of the application along with unit tests of those components
 
