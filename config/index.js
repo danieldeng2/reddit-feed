@@ -1,3 +1,3 @@
 module.exports = {
-  USER_AGENT: 'Reddit-Scrapper',
+  USER_AGENT: "Reddit-Scrapper",
 };
