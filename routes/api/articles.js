@@ -6,11 +6,13 @@ router.route('/:subreddit').get((req, res) => {
 	const timeframe = req.query.timeframe;
 	const limit = req.query.limit;
 
-	new FetchArticles().run(subreddit, timeframe, limit).then(
-		articles => res.status(200).json(articles)
-	).catch(
-		e => res.status(e.error || 404).json(e)
-	);
+	new FetchArticles()
+		.run(subreddit, timeframe, limit)
+		.then(
+			articles => res.status(200).json(articles)
+		).catch(
+			e => res.status(e.error || 404).json(e)
+		);
 
 });
 

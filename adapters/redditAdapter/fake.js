@@ -2,13 +2,14 @@ module.exports = function RedditAdapter() {
 	const exampleResponses = {
 		correctSubreddit: {
 			kind: "Listing",
-			dist: 2,
 			data: {
+				dist: 2,
 				children: [
 					{
 						kind: "t3",
 						data: {
 							id: "abcd",
+							subreddit: "correctSubreddit",
 							score: 50,
 							created_utc: 1000000.0,
 							title: "first article",
@@ -20,6 +21,7 @@ module.exports = function RedditAdapter() {
 						kind: "t3",
 						data: {
 							id: "abcde",
+							subreddit: "correctSubreddit",
 							score: 51,
 							created_utc: 1000001.0,
 							title: "second article",

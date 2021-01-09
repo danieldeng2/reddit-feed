@@ -7,8 +7,9 @@ describe('Node Environment', () => {
 	})
 })
 
-describe("Test the Article endpoint", () => {
-	test("It should response the GET method", () => {
+describe("Article endpoint", () => {
+
+	it("should response the GET method", () => {
 		return request(app)
 			.get("/api/articles/correctSubreddit")
 			.then(response => {
@@ -16,7 +17,7 @@ describe("Test the Article endpoint", () => {
 			});
 	});
 
-	test("It should produce error if no subreddit given", () => {
+	it("should produce error if no subreddit given", () => {
 		return request(app)
 			.get("/api/articles/")
 			.then(response => {
@@ -24,7 +25,7 @@ describe("Test the Article endpoint", () => {
 			});
 	});
 
-	test("It should produce error if subreddit does not exist", () => {
+	it("should produce error if subreddit does not exist", () => {
 		return request(app)
 			.get("/api/articles/anExampleOfaSubredditThatDoesNotExist")
 			.then(response => {

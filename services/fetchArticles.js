@@ -28,9 +28,7 @@ module.exports = function FetchArticles() {
 	}
 
 	function onSuccess(rawResponse) {
-		console.log("onSuccess " + rawResponse.kind);
 		validateResponse(rawResponse);
-
 		that.response = rawResponse.data;
 		that.resolve(parseResponse());
 	}
@@ -80,10 +78,16 @@ module.exports = function FetchArticles() {
 
 
 	function validateResponse(rawResponse) {
-		if (!rawResponse.data)
+		if (rawResponse.kind !== "Listing" || !rawResponse.data)
 			that.reject({ message: "Unknown error", error: 404 });
 
-		else if (!rawResponse.data.children || !rawResponse.data.children[0])
+		else if (!rawResponse.data.children)
+			that.reject({ message: "Unknown error", error: 404 });
+
+		else if (!rawResponse.data.children[0])
+			that.reject({ message: "Unknown error", error: 404 });
+
+		else if (rawResponse.data.children[0].kind !== "t3")
 			that.reject({ message: "Unknown error", error: 404 });
 	}
 
