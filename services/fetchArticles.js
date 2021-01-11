@@ -4,7 +4,14 @@ module.exports = function FetchArticles() {
   const that = this;
   this.resolve = null;
   this.reject = null;
-  this.response = null;
+  const timeframeOptions = new Set([
+    "hour",
+    "day",
+    "week",
+    "month",
+    "year",
+    "all",
+  ]);
 
   this.run = function (subreddit, timeframe, limit) {
     return new Promise((res, rej) => {
@@ -27,17 +34,17 @@ module.exports = function FetchArticles() {
 
   function onSuccess(rawResponse) {
     validateResponse(rawResponse);
-    that.response = rawResponse.data;
-    that.resolve(parseResponse());
+    const response = rawResponse.data;
+    that.resolve(parseResponse(response));
   }
 
   function onFail(error) {
     that.reject(error);
   }
 
-  function parseResponse() {
+  function parseResponse(response) {
     //Parse raw data to only return useful information
-    const rawArticles = that.response.children;
+    const rawArticles = response.children;
     const articles = [];
 
     for (let rawArticle of rawArticles) {
@@ -55,21 +62,12 @@ module.exports = function FetchArticles() {
 
     return {
       subreddit: rawArticles[0].data.subreddit,
-      limit: that.response.dist,
+      limit: response.dist,
       articles,
     };
   }
 
   function validateRequest(subreddit, timeframe, limit) {
-    const timeframeOptions = new Set([
-      "hour",
-      "day",
-      "week",
-      "month",
-      "year",
-      "all",
-    ]);
-
     if (!subreddit)
       that.reject({ message: "Subreddit name must be provided", error: 400 });
     else if (limit && limit <= 0)
