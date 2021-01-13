@@ -82,7 +82,7 @@ module.exports = function FetchArticles() {
     else if (!rawResponse.data.children)
       that.reject({ message: "Unknown error", error: 404 });
     else if (!rawResponse.data.children[0])
-      that.reject({ message: "Unknown error", error: 404 });
+      that.reject({ message: "No articles found", error: 404 });
     else if (rawResponse.data.children[0].kind !== "t3")
       that.reject({ message: "Unknown error", error: 404 });
   }
